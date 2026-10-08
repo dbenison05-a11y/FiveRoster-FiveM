@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FiveRoster</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app" class="hidden">
+    <div class="panel">
+      <div class="header">
+        <div>
+          <p class="eyebrow">Department management</p>
+          <h1>FiveRoster</h1>
+        </div>
+        <button id="closeBtn">Close</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="departments">Departments</button>
+        <button class="tab" data-tab="ranks">Ranks</button>
+        <button class="tab" data-tab="roster">Roster</button>
+        <button class="tab" data-tab="shifts">Shifts</button>
+        <button class="tab" data-tab="leave">Leave</button>
+        <button class="tab" data-tab="training">Training</button>
+        <button class="tab" data-tab="discipline">Discipline</button>
+        <button class="tab" data-tab="applications">Recruitment</button>
+      </div>
+
+      <section class="tab-panel active" id="departments-panel">
+        <h2>Departments</h2>
+        <form id="deptForm" class="compact-form">
+          <input type="text" id="deptName" placeholder="Department name" />
+          <button type="submit">Create</button>
+        </form>
+        <div id="departmentList" class="list"></div>
+      </section>
+
+      <section class="tab-panel" id="ranks-panel">
+        <h2>Ranks</h2>
+        <form id="rankForm" class="compact-form">
+          <input type="text" id="rankName" placeholder="Rank name" />
+          <input type="number" id="rankLevel" min="1" max="20" value="1" />
+          <select id="rankDepartment"></select>
+          <button type="submit">Create</button>
+        </form>
+        <div id="rankList" class="list"></div>
+      </section>
+
+      <section class="tab-panel" id="roster-panel">
+        <h2>Roster</h2>
+        <form id="memberForm" class="compact-form multi-row">
+          <input type="text" id="memberUsername" placeholder="Username" />
+          <input type="text" id="memberDiscord" placeholder="Discord ID" />
+          <input type="text" id="memberCallsign" placeholder="Callsign" />
+          <select id="memberDepartment"></select>
+          <select id="memberRank"></select>
+          <button type="submit">Add member</button>
+        </form>
+        <div id="memberList" class="list"></div>
+      </section>
+
+      <section class="tab-panel" id="shifts-panel">
+        <h2>Shift log</h2>
+        <form id="shiftForm" class="compact-form">
+          <select id="shiftMember"></select>
+          <select id="shiftStatus">
+            <option value="on-duty">On duty</option>
+            <option value="break">Break</option>
+            <option value="off-duty">Off duty</option>
+          </select>
+          <button type="submit">Log shift</button>
+        </form>
+        <div id="shiftList" class="list"></div>
+      </section>
+
+      <section class="tab-panel" id="leave-panel">
+        <h2>Leave requests</h2>
+        <form id="leaveForm" class="compact-form multi-row">
+          <select id="leaveMember"></select>
+          <input type="text" id="leaveReason" placeholder="Reason" />
+          <input type="date" id="leaveStart" />
+          <input type="date" id="leaveEnd" />
+          <button type="submit">Request leave</button>
+        </form>
+        <div id="leaveList" class="list"></div>
+      </section>
+
+      <section class="tab-panel" id="training-panel">
+        <h2>Training</h2>
+        <form id="trainingForm" class="compact-form">
+          <select id="trainingMember"></select>
+          <input type="text" id="trainingModule" placeholder="Module name" />
+          <button type="submit">Assign</button>
+        </form>
+        <div id="trainingList" class="list"></div>
+      </section>
+
+      <section class="tab-panel" id="discipline-panel">
+        <h2>Discipline</h2>
+        <form id="disciplineForm" class="compact-form multi-row">
+          <select id="disciplineMember"></select>
+          <input type="text" id="disciplineReason" placeholder="Reason" />
+          <select id="disciplineSeverity">
+            <option value="warning">Warning</option>
+            <option value="suspension">Suspension</option>
+            <option value="termination">Termination</option>
+          </select>
+          <input type="text" id="disciplineIssuer" placeholder="Issued by" />
+          <button type="submit">Save report</button>
+        </form>
+        <div id="disciplineList" class="list"></div>
+      </section>
+
+      <section class="tab-panel" id="applications-panel">
+        <h2>Recruitment</h2>
+        <form id="appForm" class="compact-form multi-row">
+          <input type="text" id="appUsername" placeholder="Applicant username" />
+          <textarea id="appExperience" placeholder="Experience"></textarea>
+          <button type="submit">Submit</button>
+        </form>
+        <div id="applicationList" class="list"></div>
+      </section>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
