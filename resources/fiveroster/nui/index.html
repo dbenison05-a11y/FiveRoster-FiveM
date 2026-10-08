@@ -3,125 +3,363 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FiveRoster</title>
+  <title>FiveRoster - Advanced Premium</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="app" class="hidden">
-    <div class="panel">
-      <div class="header">
-        <div>
-          <p class="eyebrow">Department management</p>
-          <h1>FiveRoster</h1>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <div class="logo-icon">📋</div>
+            <div>
+              <h1>FiveRoster</h1>
+              <p>v1.0.0</p>
+            </div>
+          </div>
         </div>
-        <button id="closeBtn">Close</button>
-      </div>
 
-      <div class="tabs">
-        <button class="tab active" data-tab="departments">Departments</button>
-        <button class="tab" data-tab="ranks">Ranks</button>
-        <button class="tab" data-tab="roster">Roster</button>
-        <button class="tab" data-tab="shifts">Shifts</button>
-        <button class="tab" data-tab="leave">Leave</button>
-        <button class="tab" data-tab="training">Training</button>
-        <button class="tab" data-tab="discipline">Discipline</button>
-        <button class="tab" data-tab="applications">Recruitment</button>
-      </div>
+        <nav class="nav-menu">
+          <button class="nav-item active" data-tab="dashboard">
+            <span class="icon">📊</span>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-tab="departments">
+            <span class="icon">🏢</span>
+            <span>Departments</span>
+          </button>
+          <button class="nav-item" data-tab="ranks">
+            <span class="icon">⭐</span>
+            <span>Ranks</span>
+          </button>
+          <button class="nav-item" data-tab="roster">
+            <span class="icon">👥</span>
+            <span>Roster</span>
+          </button>
+          <button class="nav-item" data-tab="shifts">
+            <span class="icon">⏱️</span>
+            <span>Shifts</span>
+          </button>
+          <button class="nav-item" data-tab="leave">
+            <span class="icon">📅</span>
+            <span>Leave</span>
+          </button>
+          <button class="nav-item" data-tab="training">
+            <span class="icon">📚</span>
+            <span>Training</span>
+          </button>
+          <button class="nav-item" data-tab="discipline">
+            <span class="icon">⚖️</span>
+            <span>Discipline</span>
+          </button>
+          <button class="nav-item" data-tab="applications">
+            <span class="icon">📝</span>
+            <span>Recruitment</span>
+          </button>
+        </nav>
 
-      <section class="tab-panel active" id="departments-panel">
-        <h2>Departments</h2>
-        <form id="deptForm" class="compact-form">
-          <input type="text" id="deptName" placeholder="Department name" />
-          <button type="submit">Create</button>
-        </form>
-        <div id="departmentList" class="list"></div>
-      </section>
+        <div class="sidebar-footer">
+          <button id="closeBtn" class="close-btn">Close Menu</button>
+        </div>
+      </aside>
 
-      <section class="tab-panel" id="ranks-panel">
-        <h2>Ranks</h2>
-        <form id="rankForm" class="compact-form">
-          <input type="text" id="rankName" placeholder="Rank name" />
-          <input type="number" id="rankLevel" min="1" max="20" value="1" />
-          <select id="rankDepartment"></select>
-          <button type="submit">Create</button>
-        </form>
-        <div id="rankList" class="list"></div>
-      </section>
+      <main class="main-content">
+        <section class="tab-panel active" id="dashboard-panel">
+          <div class="page-header">
+            <h2>Dashboard</h2>
+            <p>Roster management overview</p>
+          </div>
 
-      <section class="tab-panel" id="roster-panel">
-        <h2>Roster</h2>
-        <form id="memberForm" class="compact-form multi-row">
-          <input type="text" id="memberUsername" placeholder="Username" />
-          <input type="text" id="memberDiscord" placeholder="Discord ID" />
-          <input type="text" id="memberCallsign" placeholder="Callsign" />
-          <select id="memberDepartment"></select>
-          <select id="memberRank"></select>
-          <button type="submit">Add member</button>
-        </form>
-        <div id="memberList" class="list"></div>
-      </section>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+              <div>
+                <p class="stat-label">Total Members</p>
+                <p class="stat-value" id="stat-members">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🏢</div>
+              <div>
+                <p class="stat-label">Departments</p>
+                <p class="stat-value" id="stat-departments">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">⏱️</div>
+              <div>
+                <p class="stat-label">On Duty</p>
+                <p class="stat-value" id="stat-onduty">0</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📅</div>
+              <div>
+                <p class="stat-label">Pending Leave</p>
+                <p class="stat-value" id="stat-leave">0</p>
+              </div>
+            </div>
+          </div>
 
-      <section class="tab-panel" id="shifts-panel">
-        <h2>Shift log</h2>
-        <form id="shiftForm" class="compact-form">
-          <select id="shiftMember"></select>
-          <select id="shiftStatus">
-            <option value="on-duty">On duty</option>
-            <option value="break">Break</option>
-            <option value="off-duty">Off duty</option>
-          </select>
-          <button type="submit">Log shift</button>
-        </form>
-        <div id="shiftList" class="list"></div>
-      </section>
+          <div class="recent-activity">
+            <h3>Recent Activity</h3>
+            <div id="activityFeed" class="activity-feed"></div>
+          </div>
+        </section>
 
-      <section class="tab-panel" id="leave-panel">
-        <h2>Leave requests</h2>
-        <form id="leaveForm" class="compact-form multi-row">
-          <select id="leaveMember"></select>
-          <input type="text" id="leaveReason" placeholder="Reason" />
-          <input type="date" id="leaveStart" />
-          <input type="date" id="leaveEnd" />
-          <button type="submit">Request leave</button>
-        </form>
-        <div id="leaveList" class="list"></div>
-      </section>
+        <section class="tab-panel" id="departments-panel">
+          <div class="page-header">
+            <h2>Departments</h2>
+            <p>Manage organizational departments</p>
+          </div>
 
-      <section class="tab-panel" id="training-panel">
-        <h2>Training</h2>
-        <form id="trainingForm" class="compact-form">
-          <select id="trainingMember"></select>
-          <input type="text" id="trainingModule" placeholder="Module name" />
-          <button type="submit">Assign</button>
-        </form>
-        <div id="trainingList" class="list"></div>
-      </section>
+          <div class="card">
+            <div class="card-header">Create Department</div>
+            <form id="deptForm" class="form-grid">
+              <div class="form-group full-width">
+                <label>Department Name</label>
+                <input type="text" id="deptName" placeholder="e.g., Operations, Support" />
+              </div>
+              <button type="submit" class="btn btn-primary">Create Department</button>
+            </form>
+          </div>
 
-      <section class="tab-panel" id="discipline-panel">
-        <h2>Discipline</h2>
-        <form id="disciplineForm" class="compact-form multi-row">
-          <select id="disciplineMember"></select>
-          <input type="text" id="disciplineReason" placeholder="Reason" />
-          <select id="disciplineSeverity">
-            <option value="warning">Warning</option>
-            <option value="suspension">Suspension</option>
-            <option value="termination">Termination</option>
-          </select>
-          <input type="text" id="disciplineIssuer" placeholder="Issued by" />
-          <button type="submit">Save report</button>
-        </form>
-        <div id="disciplineList" class="list"></div>
-      </section>
+          <div class="card">
+            <div class="card-header">Active Departments</div>
+            <div id="departmentList" class="item-list"></div>
+          </div>
+        </section>
 
-      <section class="tab-panel" id="applications-panel">
-        <h2>Recruitment</h2>
-        <form id="appForm" class="compact-form multi-row">
-          <input type="text" id="appUsername" placeholder="Applicant username" />
-          <textarea id="appExperience" placeholder="Experience"></textarea>
-          <button type="submit">Submit</button>
-        </form>
-        <div id="applicationList" class="list"></div>
-      </section>
+        <section class="tab-panel" id="ranks-panel">
+          <div class="page-header">
+            <h2>Ranks</h2>
+            <p>Define and manage rank hierarchy</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Create Rank</div>
+            <form id="rankForm" class="form-grid">
+              <div class="form-group">
+                <label>Rank Name</label>
+                <input type="text" id="rankName" placeholder="e.g., Officer" />
+              </div>
+              <div class="form-group">
+                <label>Level (1-20)</label>
+                <input type="number" id="rankLevel" min="1" max="20" value="1" />
+              </div>
+              <div class="form-group">
+                <label>Department</label>
+                <select id="rankDepartment"></select>
+              </div>
+              <button type="submit" class="btn btn-primary">Create Rank</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Rank Hierarchy</div>
+            <div id="rankList" class="item-list"></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="roster-panel">
+          <div class="page-header">
+            <h2>Roster</h2>
+            <p>Manage team members and assignments</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Add Member</div>
+            <form id="memberForm" class="form-grid multi-row">
+              <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="memberUsername" placeholder="Player name" />
+              </div>
+              <div class="form-group">
+                <label>Discord ID</label>
+                <input type="text" id="memberDiscord" placeholder="123456789" />
+              </div>
+              <div class="form-group">
+                <label>Callsign</label>
+                <input type="text" id="memberCallsign" placeholder="e.g., ALPHA-1" />
+              </div>
+              <div class="form-group">
+                <label>Department</label>
+                <select id="memberDepartment"></select>
+              </div>
+              <div class="form-group">
+                <label>Rank</label>
+                <select id="memberRank"></select>
+              </div>
+              <button type="submit" class="btn btn-primary full-width">Add Member</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Team Members</div>
+            <div id="memberList" class="item-list"></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="shifts-panel">
+          <div class="page-header">
+            <h2>Shift Management</h2>
+            <p>Track duty hours and status</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Log Shift</div>
+            <form id="shiftForm" class="form-grid">
+              <div class="form-group">
+                <label>Member</label>
+                <select id="shiftMember"></select>
+              </div>
+              <div class="form-group">
+                <label>Status</label>
+                <select id="shiftStatus">
+                  <option value="on-duty">On Duty</option>
+                  <option value="break">Break</option>
+                  <option value="off-duty">Off Duty</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Log Shift</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Active Shifts</div>
+            <div id="shiftList" class="item-list"></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="leave-panel">
+          <div class="page-header">
+            <h2>Leave Requests</h2>
+            <p>Manage time off and approvals</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Request Leave</div>
+            <form id="leaveForm" class="form-grid multi-row">
+              <div class="form-group">
+                <label>Member</label>
+                <select id="leaveMember"></select>
+              </div>
+              <div class="form-group">
+                <label>Reason</label>
+                <input type="text" id="leaveReason" placeholder="Vacation, Sick, etc." />
+              </div>
+              <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" id="leaveStart" />
+              </div>
+              <div class="form-group">
+                <label>End Date</label>
+                <input type="date" id="leaveEnd" />
+              </div>
+              <button type="submit" class="btn btn-primary full-width">Request Leave</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Leave Requests</div>
+            <div id="leaveList" class="item-list"></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="training-panel">
+          <div class="page-header">
+            <h2>Training & Development</h2>
+            <p>Manage courses and certifications</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Assign Training</div>
+            <form id="trainingForm" class="form-grid">
+              <div class="form-group">
+                <label>Member</label>
+                <select id="trainingMember"></select>
+              </div>
+              <div class="form-group">
+                <label>Module</label>
+                <input type="text" id="trainingModule" placeholder="e.g., Basic Training" />
+              </div>
+              <button type="submit" class="btn btn-primary">Assign Training</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Training Records</div>
+            <div id="trainingList" class="item-list"></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="discipline-panel">
+          <div class="page-header">
+            <h2>Discipline & Reports</h2>
+            <p>Document infractions and issues</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">File Discipline Report</div>
+            <form id="disciplineForm" class="form-grid multi-row">
+              <div class="form-group">
+                <label>Member</label>
+                <select id="disciplineMember"></select>
+              </div>
+              <div class="form-group">
+                <label>Reason</label>
+                <input type="text" id="disciplineReason" placeholder="Description of incident" />
+              </div>
+              <div class="form-group">
+                <label>Severity</label>
+                <select id="disciplineSeverity">
+                  <option value="warning">Warning</option>
+                  <option value="suspension">Suspension</option>
+                  <option value="termination">Termination</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Issued By</label>
+                <input type="text" id="disciplineIssuer" placeholder="Your name" />
+              </div>
+              <button type="submit" class="btn btn-primary full-width">File Report</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Discipline Records</div>
+            <div id="disciplineList" class="item-list"></div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="applications-panel">
+          <div class="page-header">
+            <h2>Recruitment</h2>
+            <p>Manage applications and onboarding</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">New Application</div>
+            <form id="appForm" class="form-grid multi-row">
+              <div class="form-group">
+                <label>Applicant Name</label>
+                <input type="text" id="appUsername" placeholder="Full name" />
+              </div>
+              <div class="form-group full-width">
+                <label>Experience & Background</label>
+                <textarea id="appExperience" placeholder="Tell us about your experience..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary full-width">Submit Application</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Applications</div>
+            <div id="applicationList" class="item-list"></div>
+          </div>
+        </section>
+      </main>
     </div>
   </div>
 
